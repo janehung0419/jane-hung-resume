@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jane Hung</title>
+<meta name="description" content="Jane Hung — Senior Full-Stack .NET Engineer. 9+ years, 1,700+ commits, 32 systems across freight-forwarding &amp; finance platforms.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230F4A40'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' fill='%234FD3B8' text-anchor='middle'%3EJH%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EEF1EE;
+    --paper-raised:#FFFFFF;
+    --ink-900:#12202F;
+    --ink-700:#3C4E5C;
+    --ink-500:#6C7D79;
+    --line:#D4DAD5;
+    --accent:#1B7A6B;
+    --accent-ink:#0F4A40;
+    --accent-warm:#B96A28;
+    --accent-soft:#E3EEEA;
+    --shadow: 0 1px 2px rgba(15,30,25,0.06), 0 8px 24px rgba(15,30,25,0.05);
+    --serif: "Source Serif 4", Georgia, "Noto Serif TC", serif;
+    --sans: "IBM Plex Sans", "Noto Sans TC", -apple-system, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1615;
+      --paper-raised:#141F1D;
+      --ink-900:#EBEFEA;
+      --ink-700:#BFC9C2;
+      --ink-500:#87968E;
+      --line:#28352F;
+      --accent:#54D6BA;
+      --accent-ink:#54D6BA;
+      --accent-warm:#E3A15C;
+      --accent-soft:#1A2C27;
+      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1615;
+    --paper-raised:#141F1D;
+    --ink-900:#EBEFEA;
+    --ink-700:#BFC9C2;
+    --ink-500:#87968E;
+    --line:#28352F;
+    --accent:#54D6BA;
+    --accent-ink:#54D6BA;
+    --accent-warm:#E3A15C;
+    --accent-soft:#1A2C27;
+    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink-900);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--accent-soft); color:var(--accent-ink); }
+
+  .en{display:none;}
+  body.lang-en .zh{display:none;}
+  body.lang-en .en{display:inline;}
+
+  a{color:var(--accent-ink); text-decoration-color:var(--line);}
+  a:hover{ text-decoration-color:currentColor; }
+
+  .sheet{
+    max-width:840px;
+    margin:0 auto;
+    padding:0 24px 96px;
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    max-width:840px;
+    margin:0 auto;
+    padding:20px 24px 0;
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+  }
+  .pill-btn{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:.04em;
+    color:var(--ink-700);
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:7px 14px;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+  }
+  .pill-btn:hover{ color:var(--accent-ink); border-color:var(--accent); }
+  .pill-btn:focus-visible, a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent); outline-offset:2px;
+  }
+
+  /* ---------- header ---------- */
+  header.hero{
+    padding:28px 0 36px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:36px;
+  }
+  .doc-label{
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+    margin:0 0 14px;
+  }
+  .doc-label::before{ content:"◆ "; }
+  h1.name{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(2.4rem, 5vw, 3.4rem);
+    margin:0 0 6px;
+    text-wrap:balance;
+    letter-spacing:-0.01em;
+  }
+  .role-line{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:1.2rem;
+    color:var(--ink-700);
+    margin:0 0 18px;
+  }
+  .contact-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 18px;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-700);
+  }
+  .contact-row a{ color:var(--ink-700); }
+  .contact-row a:hover{ color:var(--accent-ink); }
+  .contact-row span.sep{ color:var(--line); }
+
+  .summary{
+    font-size:1.05rem;
+    color:var(--ink-700);
+    max-width:66ch;
+    margin-top:20px;
+  }
+
+  /* ---------- stat strip ---------- */
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    background:var(--paper-raised);
+    box-shadow:var(--shadow);
+    margin:28px 0 8px;
+  }
+  .stat{
+    padding:16px 14px;
+    text-align:center;
+    border-left:1px solid var(--line);
+  }
+  .stat:first-child{ border-left:none; }
+  .stat .num{
+    font-family:var(--mono);
+    font-variant-numeric:tabular-nums;
+    font-weight:600;
+    font-size:clamp(1.3rem,3vw,1.7rem);
+    color:var(--accent-ink);
+    display:block;
+  }
+  .stat .lbl{
+    font-size:12px;
+    color:var(--ink-500);
+    margin-top:4px;
+    display:block;
+  }
+
+  /* ---------- sections ---------- */
+  section{ margin-top:52px; }
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:18px;
+  }
+  .sec-num{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-500);
+  }
+  h2{
+    font-family:var(--serif);
+    font-size:1.5rem;
+    font-weight:600;
+    margin:0;
+    text-wrap:balance;
+  }
+  .sec-head::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+
+  /* ---------- skills ---------- */
+  .skill-group{ margin-bottom:16px; }
+  .skill-group .grp-name{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--ink-500);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    display:block;
+    margin-bottom:8px;
+  }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-size:13.5px;
+    color:var(--ink-700);
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:5px 10px;
+  }
+  .chip.accent{
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-color:transparent;
+  }
+
+  /* ---------- open-to ---------- */
+  .open-to{ display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
+  .open-chip{
+    font-family:var(--mono);
+    font-size:12.5px;
+    padding:7px 12px;
+    border-radius:999px;
+    border:1px dashed var(--accent);
+    color:var(--accent-ink);
+  }
+
+  /* ---------- timeline ---------- */
+  .timeline{
+    border-left:2px solid var(--line);
+    margin-left:6px;
+    padding-left:26px;
+    display:flex;
+    flex-direction:column;
+    gap:34px;
+  }
+  .tl-item{ position:relative; }
+  .tl-item::before{
+    content:"";
+    position:absolute;
+    left:-32px;
+    top:5px;
+    width:11px; height:11px;
+    border-radius:50%;
+    background:var(--paper-raised);
+    border:2px solid var(--accent);
+  }
+  .tl-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:8px 14px;
+    margin-bottom:4px;
+  }
+  .tl-title{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:1.18rem;
+  }
+  .tl-meta{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-500);
+    font-variant-numeric:tabular-nums;
+  }
+  .tl-role{
+    font-size:14px;
+    color:var(--accent-ink);
+    margin-bottom:8px;
+  }
+  .tl-item ul{
+    margin:8px 0 0;
+    padding-left:18px;
+    color:var(--ink-700);
+    font-size:14.5px;
+  }
+  .tl-item li{ margin-bottom:4px; }
+  .tl-stack{
+    margin-top:10px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .tl-stack .chip{ font-size:12px; padding:3px 8px; }
+
+  /* ---------- additional projects ---------- */
+  .addl-note{ color:var(--ink-700); font-size:14.5px; margin-bottom:14px; }
+  .addl-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+
+  /* ---------- ledger table ---------- */
+  .ledger-wrap{
+    overflow-x:auto;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--paper-raised);
+    box-shadow:var(--shadow);
+  }
+  table.ledger{
+    border-collapse:collapse;
+    width:100%;
+    min-width:600px;
+    font-size:13.5px;
+  }
+  table.ledger th{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--ink-500);
+    text-align:left;
+    padding:10px 14px;
+    border-bottom:1px solid var(--line);
+    position:sticky; top:0;
+    background:var(--paper-raised);
+  }
+  table.ledger td{
+    padding:9px 14px;
+    border-bottom:1px solid var(--line);
+    color:var(--ink-700);
+    vertical-align:top;
+  }
+  table.ledger tr:last-child td{ border-bottom:none; }
+  table.ledger td.name{ color:var(--ink-900); font-weight:500; }
+  table.ledger td.commits{ font-family:var(--mono); font-variant-numeric:tabular-nums; color:var(--accent-ink); text-align:right; }
+  table.ledger td.period{ font-family:var(--mono); font-size:12.5px; white-space:nowrap; }
+
+  /* ---------- education ---------- */
+  .edu-card{
+    border:1px dashed var(--line);
+    border-radius:10px;
+    padding:16px 18px;
+    color:var(--ink-500);
+    font-size:14.5px;
+    background:var(--paper-raised);
+  }
+
+  footer{
+    margin-top:64px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:12px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--ink-500);
+  }
+  footer a{ color:var(--ink-500); }
+  footer a:hover{ color:var(--accent-ink); }
+
+  @media (max-width:600px){
+    .stats{ grid-template-columns:repeat(2,1fr); }
+    .stat:nth-child(3){ border-left:none; }
+    .stat:nth-child(2), .stat:nth-child(4){ }
+    .topbar{ justify-content:space-between; }
+  }
+
+  @media print{
+    .topbar, .pill-btn{ display:none !important; }
+    body{ background:#fff; }
+    .stats, .ledger-wrap, .edu-card{ box-shadow:none; }
+    section{ margin-top:30px; }
+    .timeline{ page-break-inside:auto; }
+    .tl-item{ break-inside:avoid; }
+    a{ text-decoration:none; color:inherit; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button class="pill-btn" id="langToggle" type="button" aria-label="Toggle language">EN / 中</button>
+  <button class="pill-btn" id="printBtn" type="button">
+    <span class="zh">下載 PDF</span><span class="en">Save PDF</span>
+  </button>
+</div>
+
+<div class="sheet">
+
+  <header class="hero">
+    <p class="doc-label"><span class="zh">履歷 — 資深軟體工程師</span><span class="en">Resume — Senior Software Engineer</span></p>
+    <h1 class="name">Jane Hung</h1>
+    <p class="role-line">
+      <span class="zh">資深全端 .NET 工程師 ・ 國際物流與財務系統</span>
+      <span class="en">Senior Full-Stack .NET Engineer · Logistics &amp; Finance Systems</span>
+    </p>
+    <div class="contact-row">
+      <a href="mailto:janehung0419@gmail.com">janehung0419@gmail.com</a>
+      <span class="sep">/</span>
+      <a href="https://github.com/EasonSu223" target="_blank" rel="noopener">github.com/EasonSu223</a>
+      <span class="sep">/</span>
+      <span><span class="zh">現職：Dimerco Express（鼎盛集團）</span><span class="en">Currently at Dimerco Express (Dimerco Group)</span></span>
+    </div>
+    <p class="summary">
+      <span class="zh">9 年以上 .NET 全端開發經驗，長期深耕大型企業級物流暨財務系統（ValuePlus / eSAM / ACS 系列），完整參與公司技術從 ASP.NET Web Forms → MVC → ASP.NET Core 6 + Vue 3 的世代演進。具備從資料庫（T-SQL）、後端 API 到前端 SPA 的全端交付能力，並主導公司級跨系統安全強化（MFA）專案，橫跨 8 套以上系統落地。深度理解國際貨運代理與財務會計領域知識，能將複雜業務規則精準轉譯為系統邏輯。</span>
+      <span class="en">Senior software engineer with 9+ years of full-stack .NET experience, spent largely as a core long-term contributor to Dimerco Group's large-scale enterprise logistics &amp; finance systems (ValuePlus / eSAM / ACS). Lived through the company's full stack evolution — ASP.NET Web Forms → MVC → ASP.NET Core 6 + Vue 3 — and delivers end-to-end across database (T-SQL), backend APIs, and frontend SPAs. Led a company-wide MFA rollout across 8+ independent systems. Deep domain knowledge of international freight forwarding and financial accounting.</span>
+    </p>
+
+    <div class="stats">
+      <div class="stat"><span class="num">9+</span><span class="lbl"><span class="zh">年資歷</span><span class="en">years</span></span></div>
+      <div class="stat"><span class="num">1,700+</span><span class="lbl"><span class="zh">累計 commits</span><span class="en">total commits</span></span></div>
+      <div class="stat"><span class="num">32</span><span class="lbl"><span class="zh">參與專案</span><span class="en">systems shipped</span></span></div>
+      <div class="stat"><span class="num">8+</span><span class="lbl"><span class="zh">MFA 覆蓋系統</span><span class="en">MFA rollouts</span></span></div>
+    </div>
+  </header>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sec-head"><span class="sec-num">01</span><h2><span class="zh">核心技能</span><span class="en">Core Skills</span></h2></div>
+
+    <div class="skill-group">
+      <span class="grp-name"><span class="zh">後端・Legacy</span><span class="en">Backend · Legacy</span></span>
+      <div class="chips">
+        <span class="chip">C#</span><span class="chip">.NET Framework 4.8</span><span class="chip">ASP.NET MVC</span>
+        <span class="chip">Web Forms</span><span class="chip">Web API</span><span class="chip">Entity Framework 6</span><span class="chip">LINQ to Entities</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <span class="grp-name"><span class="zh">後端・現代化</span><span class="en">Backend · Modern</span></span>
+      <div class="chips">
+        <span class="chip accent">ASP.NET Core 6</span><span class="chip accent">EF Core</span><span class="chip accent">ABP Framework</span>
+        <span class="chip accent">Autofac DI</span><span class="chip accent">RESTful API Design</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <span class="grp-name"><span class="zh">前端</span><span class="en">Frontend</span></span>
+      <div class="chips">
+        <span class="chip accent">Vue 3 (Composition API)</span><span class="chip accent">Vite</span><span class="chip accent">Pinia</span><span class="chip accent">Element Plus</span>
+        <span class="chip">Razor</span><span class="chip">jQuery</span><span class="chip">Bootstrap</span><span class="chip">Kendo UI</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <span class="grp-name"><span class="zh">資料庫</span><span class="en">Database</span></span>
+      <div class="chips">
+        <span class="chip">MS SQL Server</span><span class="chip">T-SQL (SP / View / Function)</span><span class="chip">Versioned SQL Migrations</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <span class="grp-name"><span class="zh">系統整合</span><span class="en">Integration</span></span>
+      <div class="chips">
+        <span class="chip">EDI</span><span class="chip">OCR Document Parsing</span><span class="chip">MailKit</span><span class="chip">Third-party APIs (Xe FX)</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <span class="grp-name"><span class="zh">安全 / 工程實務</span><span class="en">Security &amp; Practice</span></span>
+      <div class="chips">
+        <span class="chip">MFA Rollout</span><span class="chip">JWT</span><span class="chip">Git / Bitbucket</span><span class="chip">Jira</span>
+        <span class="chip">Code Review</span><span class="chip">SonarCloud</span><span class="chip">NUnit / Moq</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOMAIN -->
+  <section id="domain">
+    <div class="sec-head"><span class="sec-num">02</span><h2><span class="zh">領域知識</span><span class="en">Domain Knowledge</span></h2></div>
+    <div class="chips">
+      <span class="chip"><span class="zh">國際貨運代理（空運 AE HAWB/MAWB、海運 OE MBL/HBL）</span><span class="en">Freight Forwarding (Air AE HAWB/MAWB, Ocean OE MBL/HBL)</span></span>
+      <span class="chip"><span class="zh">財務會計（GL、AR/AP、信用核准、匯率重評價）</span><span class="en">Accounting (GL, AR/AP, credit approval, FX revaluation)</span></span>
+      <span class="chip"><span class="zh">業務銷售 / CRM（報價、利潤分潤）</span><span class="en">Sales / CRM (quotation, profit sharing)</span></span>
+      <span class="chip"><span class="zh">人資系統</span><span class="en">HR Systems</span></span>
+      <span class="chip"><span class="zh">企業級多資料庫 API 閘道</span><span class="en">Enterprise Multi-DB API Gateway</span></span>
+      <span class="chip"><span class="zh">ESG 碳排分攤計算</span><span class="en">ESG Carbon Allocation</span></span>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="sec-head"><span class="sec-num">03</span><h2><span class="zh">工作經歷</span><span class="en">Experience</span></h2></div>
+
+    <div class="tl-head" style="margin-bottom:22px;">
+      <span class="tl-title"><span class="zh">Dimerco Express（鼎盛集團國際物流）</span><span class="en">Dimerco Express (Dimerco Group)</span></span>
+      <span class="tl-meta">2017.07 — <span class="zh">至今</span><span class="en">Present</span></span>
+    </div>
+    <p class="tl-role" style="margin-top:-14px; margin-bottom:26px;">
+      <span class="zh">資深軟體工程師 — 獨立/協同交付超過 30 個系統模組，涵蓋後端、前端、資料庫與系統整合</span>
+      <span class="en">Senior Software Engineer — independently &amp; collaboratively delivered 30+ system modules across backend, frontend, database and integration</span>
+    </p>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-title">ValuePlus 3.0</span>
+          <span class="tl-meta">2017–2026 · 718 commits</span>
+        </div>
+        <ul>
+          <li><span class="zh">開發與重構空/海運出口單據模組（AE HAWB/MAWB、OE MBL/HBL），從 0 到 1 建置 CBTF 報關融資模組</span><span class="en">Built &amp; refactored air/ocean export document modules (AE HAWB/MAWB, OE MBL/HBL); built the CBTF customs-brokerage/trade-finance module from scratch</span></li>
+          <li><span class="zh">修正 GL/AR/AP 核心會計邏輯，含匯率重評價、信用憑證簽發控管、供應商申請流程</span><span class="en">Fixed core GL/AR/AP logic, incl. FX revaluation, credit-note issuance control, vendor application workflows</span></li>
+          <li><span class="zh">近 9 年持續配合 SonarCloud 維持程式碼品質，為系統最長期核心貢獻者之一</span><span class="en">One of the longest-tenured contributors, maintaining code quality via SonarCloud for nearly 9 years</span></li>
+        </ul>
+        <div class="tl-stack"><span class="chip">.NET 4.8</span><span class="chip">MVC</span><span class="chip">EF6</span><span class="chip">Razor</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-title">Dimerco Database</span>
+          <span class="tl-meta">2021–2026 · 351 commits</span>
+        </div>
+        <ul>
+          <li><span class="zh">撰寫並維護橫跨 ValuePlus、Central、CSP、ACS、ReSM 等系統共用的資料庫商業邏輯</span><span class="en">Wrote &amp; maintained shared database business logic spanning ValuePlus, Central, CSP, ACS, ReSM</span></li>
+          <li><span class="zh">開發 CO2 依材積比例分攤演算法、應收帳齡與逾期天數計算等進階財務邏輯</span><span class="en">Built CBM-proportional CO2 allocation and AR aging / overdue-day calculation logic</span></li>
+        </ul>
+        <div class="tl-stack"><span class="chip">T-SQL</span><span class="chip"><span class="zh">7+ 系統共用</span><span class="en">Shared across 7+ systems</span></span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-title"><span class="zh">Home Portal 全端專案</span><span class="en">Home Portal (Full-Stack)</span></span>
+          <span class="tl-meta">2025–2026 · 156 commits</span>
+        </div>
+        <ul>
+          <li><span class="zh">獨立設計並開發「年度經營計畫平台」API（.NET 6 / ABP Framework / EF Core）與前端（Vue 3 / Element Plus / Pinia）</span><span class="en">Independently designed &amp; built the Annual Business Plan Platform API (.NET 6 / ABP / EF Core) and its Vue 3 / Element Plus / Pinia frontend</span></li>
+          <li><span class="zh">打造整合 10+ 個獨立資料庫的統一 API 閘道，並完成多層級審核（PreReview/BRB Review）流程</span><span class="en">Built a unified API gateway integrating 10+ independent databases, plus a multi-tier PreReview/BRB review workflow</span></li>
+        </ul>
+        <div class="tl-stack"><span class="chip accent">.NET 6</span><span class="chip accent">ABP</span><span class="chip accent">Vue 3</span><span class="chip accent">Pinia</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-title">ValuePlus 2.0</span>
+          <span class="tl-meta">2017–2026 · 232 commits</span>
+        </div>
+        <ul>
+          <li><span class="zh">前代 Web Forms 系統，與 3.0 版雙軌並行維運，確保新舊系統邏輯一致</span><span class="en">Legacy Web Forms system, maintained in parallel with v3.0 to keep business logic consistent across both</span></li>
+        </ul>
+        <div class="tl-stack"><span class="chip">.NET 4.8</span><span class="chip">Web Forms</span><span class="chip">RDLC</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-title">eSAM 2.0</span>
+          <span class="tl-meta">2018–2026 · 57 commits</span>
+        </div>
+        <ul>
+          <li><span class="zh">業務銷售／報價／信用核准系統，處理利潤分潤與信用額度審核邏輯</span><span class="en">Sales / quotation / credit-approval system handling profit-share and credit-limit approval logic</span></li>
+        </ul>
+        <div class="tl-stack"><span class="chip">.NET</span><span class="chip">Web Forms</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-title"><span class="zh">公司級 MFA 安全強化專案</span><span class="en">Company-wide MFA Initiative</span></span>
+          <span class="tl-meta">2026</span>
+        </div>
+        <ul>
+          <li><span class="zh">主導／參與 8+ 套獨立系統之多因子驗證導入，展現大規模技術治理執行力</span><span class="en">Led/contributed to rolling out MFA across 8+ independent systems — large-scale technical governance execution</span></li>
+        </ul>
+        <div class="tl-stack">
+          <span class="chip">valueplus-2.5</span><span class="chip">valueplus2.5-core</span><span class="chip">edicollection</span>
+          <span class="chip">centralfmsrpt</span><span class="chip">eleave</span><span class="chip">dcmp</span><span class="chip">ehrd</span>
+          <span class="chip">autopsreport</span><span class="chip">easset</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:34px;">
+      <p class="addl-note">
+        <span class="zh">其他參與專案（20+）：涵蓋人資、資產管理、業務銷售等多元業務領域 —</span>
+        <span class="en">Additional projects (20+) spanning HR, asset management, and sales domains —</span>
+      </p>
+      <div class="addl-chips">
+        <span class="chip">POMS <span class="zh">（採購暨 OCR）</span><span class="en">(procurement + OCR)</span></span>
+        <span class="chip">ACS 2.0 <span class="zh">（會計）</span><span class="en">(accounting)</span></span>
+        <span class="chip">CentralWebApi</span>
+        <span class="chip">EDI Collection</span>
+        <span class="chip">eContract</span>
+        <span class="chip">MyDimerco <span class="zh">（客戶入口・Vue.js）</span><span class="en">(customer portal · Vue.js)</span></span>
+        <span class="chip">eHRM / eHRD</span>
+        <span class="chip">eAsset</span>
+        <span class="chip">GlobalRate</span>
+        <span class="chip">DocumentCloud</span>
+        <span class="chip">DimercoListen</span>
+        <span class="chip">CubeDataUpdateProgram</span>
+        <span class="chip">B2B Plugin</span>
+        <span class="chip">GeneratePPTforQBR</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPEN TO -->
+  <section id="open-to">
+    <div class="sec-head"><span class="sec-num">04</span><h2><span class="zh">未來方向</span><span class="en">Open To</span></h2></div>
+    <div class="open-to">
+      <span class="open-chip"><span class="zh">資深全端工程師</span><span class="en">Senior Full-Stack Engineer</span></span>
+      <span class="open-chip"><span class="zh">技術主管 / Tech Lead</span><span class="en">Tech Lead / Team Lead</span></span>
+      <span class="open-chip"><span class="zh">解決方案架構師</span><span class="en">Solutions Architect</span></span>
+    </div>
+  </section>
+
+  <!-- LEDGER -->
+  <section id="ledger">
+    <div class="sec-head"><span class="sec-num">05</span><h2><span class="zh">完整專案總覽</span><span class="en">Full Project Ledger</span></h2></div>
+    <div class="ledger-wrap">
+      <table class="ledger">
+        <thead>
+          <tr>
+            <th><span class="zh">專案</span><span class="en">Project</span></th>
+            <th><span class="zh">期間</span><span class="en">Period</span></th>
+            <th style="text-align:right;"><span class="zh">Commits</span><span class="en">Commits</span></th>
+            <th><span class="zh">技術</span><span class="en">Stack</span></th>
+          </tr>
+        </thead>
+        <tbody id="ledgerBody"><!-- populated by JS from LEDGER data --></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="sec-head"><span class="sec-num">06</span><h2><span class="zh">學歷</span><span class="en">Education</span></h2></div>
+    <div class="edu-card">
+      <span class="zh">待補（學校 / 科系）</span><span class="en">To be added (institution / major)</span>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Jane Hung</span>
+    <span>
+      <a href="mailto:janehung0419@gmail.com">janehung0419@gmail.com</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/EasonSu223" target="_blank" rel="noopener">GitHub</a>
+    </span>
+  </footer>
+
+</div>
+
+<script>
+  // ---- language toggle ----
+  var langBtn = document.getElementById('langToggle');
+  langBtn.addEventListener('click', function(){
+    var isEn = document.body.classList.toggle('lang-en');
+    document.documentElement.lang = isEn ? 'en' : 'zh-Hant';
+  });
+
+  // ---- print ----
+  document.getElementById('printBtn').addEventListener('click', function(){
+    window.print();
+  });
+
+  // ---- full project ledger (source: 00-總覽與技能對應.md) ----
+  var LEDGER = [
+    ["value-3.0","2017–2026",718,".NET 4.8 / MVC / EF6 / Razor"],
+    ["dimerco_database","2021–2026",351,"T-SQL (7+ systems)"],
+    ["valueplus2.0","2017–2026",232,".NET 4.8 / Web Forms / RDLC"],
+    ["homeapi","2025–2026",82,".NET 6 / ABP / EF Core"],
+    ["newhomeportal","2025–2026",74,"Vue 3 / Vite / Element Plus"],
+    ["esam-2.0","2018–2026",57,".NET / Web Forms"],
+    ["poms","2022–2024",27,".NET / Web Forms / OCR"],
+    ["valueplus-2.5","2021–2026",20,".NET / Web Forms (MFA gateway)"],
+    ["cubedataupdateprogram","2022–2026",18,".NET batch"],
+    ["acs-2.0","2024–2026",16,".NET / Web Forms (accounting)"],
+    ["centralwebapi","2022–2026",14,"ASP.NET Web API"],
+    ["edicollection","2026",13,".NET / EDI / MFA"],
+    ["b2bplugin_internal","2023–2024",12,".NET batch (eSAM)"],
+    ["ehrm","2017–2026",12,".NET / Web Forms (HR)"],
+    ["centralfmsrpt","2025–2026",11,".NET / Web Forms (finance)"],
+    ["econtract","2018–2025",9,".NET / Web Forms (contracts)"],
+    ["mydimerco-vue","2023–2024",9,"Vue.js"],
+    ["eleave","2023–2026",7,"VB.NET+C# / Web Forms"],
+    ["globalrate","2025",6,"C# / 3rd-party API"],
+    ["dcmp","2025–2026",5,".NET / Web Forms (credit mgmt)"],
+    ["documentcloud","2021–2024",5,"C# / MailKit"],
+    ["ecall","2022–2024",5,".NET"],
+    ["ehrd","2026",5,".NET / Web Forms (MFA)"],
+    ["mydimerco-api","2023–2024",4,"C# (layered + unit tests)"],
+    ["autopsreport","2026",3,".NET / Web Forms (MFA)"],
+    ["dimercolisten","2025",3,"C# (mail listener)"],
+    ["easset","2026",3,"VB.NET / Web Forms (MFA)"],
+    ["generatepptforqbr","2023",3,"C# (PPT automation)"],
+    ["csp","2024",2,".NET / Web Forms"],
+    ["documentcloud-api","2026",2,"C# (modernized API)"],
+    ["valueplus2.5-core","2026",2,"C# (shared SDK)"],
+    ["autosendmail_globalcontract","2021",1,"C# (mail automation)"],
+    ["ecallbooking","2022",1,"C# (booking module)"]
+  ];
+  var tbody = document.getElementById('ledgerBody');
+  LEDGER.forEach(function(row){
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="name">' + row[0] + '</td>' +
+      '<td class="period">' + row[1] + '</td>' +
+      '<td class="commits">' + row[2] + '</td>' +
+      '<td>' + row[3] + '</td>';
+    tbody.appendChild(tr);
+  });
+</script>
+
+</body>
+</html>
